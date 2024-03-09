@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            position: relative; /* Set body position to relative */
+            font-size: 12px; /* Set font size to 12px for all text */
+        }
+        
+
+        header {
+            text-align: center;
+            padding: 25px;
+            background-color: #ADD8E6; /* Light sky blue color */
+            color: #000;
+            position: fixed; /* Fix the header position */
+            width: 100%; /* Make the header full width */
+            top: 0; /* Position at the top */
+            left: 0; /* Align to the left */
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            padding: 20px;
+            margin-top: 120px; /* Adjust margin top to accommodate the fixed header */
+        }
+        
+        .box {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin: 10px;
+            background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background color */
+        }
+        
+        .box img {
+            max-width: 400px; /* Set maximum width */
+            max-height: 300px; /* Set maximum height */
+            width: auto; /* Allow image to adjust width */
+            height: auto; /* Allow image to adjust height */
+        }
+        .box a{
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+        }
+        .box a:hover {
+            background-color: #87CEEB; /* Sky blue */
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            border: 3px solid #ADD8E6; /* Add border */
+            
+       
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .main-heading {
+            margin-bottom: 15px; /* Adjusted margin-bottom */
+            margin-top: -5px; /* Added margin-top to counteract the blur */
+        }
+        .option {
+            display: inline-block;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #ADD8E6;
+            text-decoration: none;
+            color: #000000;
+            font-size: 18px;
+        }
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <header>
+        <h1 class="main-heading">PRODUCT SENTIMENT ANALYSIS</h1>
+    </header>
+
+    <div class="container">
+        <div class="box">
+            <img src="{{ url_for('static', filename='images/image2.jpg') }}" width="400" height="300" alt="Single Prediction Image">
+            
+            <a class="option" href="/single"><h3>Single Prediction</h3></a>
+        </div>
+        <div class="box">
+            <img src="{{ url_for('static', filename='images/image1.jpg') }}" width="400" height="300" alt="Batch Prediction Image">
+            
+            <a class="option" href="/batch"><h3>Batch Prediction</h3></a>
+
+        </div>
+    </div>
+
+</body>
+</html>

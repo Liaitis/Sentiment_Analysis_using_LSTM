@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uploaded Sentiments</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+        }
+		img {
+            text-align: center;
+            padding: 20px;
+			display: block;
+			margin: 0 auto;
+			width: 100%;
+			max-height: 60vh; /* Adjust the value as needed */
+			height: auto;
+            
+        }
+        header h1 {
+            color: #fff; /* Adjust h1 color */
+        }
+
+        /* Add other CSS styles here */
+        .error {
+            color: red;
+        }
+
+        .data {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table.data th {
+            font-size: 14px;
+            background-color: #ADD8E6; /* Light blue */
+            color: black; /* Font color black */
+            text-align: center; /* Center-aligned */
+            padding: 15px; /* Add spacing between columns */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add 3D effect */
+        }
+
+        /* Table cell style */
+        table.data td {
+            font-size: 12px;
+            padding: 10px;
+            word-wrap: break-word; /* Wrap long words */
+            overflow-wrap: break-word;
+            max-width: 200px; /* Limit maximum width */
+            text-align: left; /* Left align text */
+        }
+
+        /* Alternate row background color */
+        table.data tbody tr:nth-child(even) {
+            background-color: #f2f2f2; /* Light gray */
+        }
+
+        .data tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .data tbody tr:hover {
+            background-color: #f0f0f0;
+        }
+
+        .positive {
+            color: green;
+            font-weight: bold;
+        }
+
+        .negative {
+            color: red;
+            font-weight: bold;
+        }
+
+        .neutral {
+            color: #ffcc00; /* Yellow */
+            font-weight: bold;
+        }
+
+        .container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .container p {
+            font-size: 14px;
+        }
+
+        .box {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            margin: 10px;
+        }
+
+        .hr {
+            border: none;
+            height: 3px; /* Increase height to make it thicker */
+            background-color: #ADD8E6; /* Change background color to blue */
+            margin-top: 20px; /* Add margin for spacing */
+        }
+
+        .button {
+            background-color: #ADD8E6; /* Light blue */
+            color: black; /* Font color black */
+            border: 3px solid #ADD8E6; /* Add border */
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #87CEEB; /* Sky blue */
+        }
+
+        .file-upload {
+            background-color: #ADD8E6; /* Light blue */
+            color: black; /* Font color black */
+			border: 1px solid #ADD8E6;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .file-upload:hover {
+            background-color: #87CEEB; /* Sky blue */
+        }
+    </style>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Batch Sentiment Analysis</h1>
+        <p>Upload your .xlsx file to conduct bulk sentiment prediction.</p>
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+        <br>
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".xlsx" class="file-upload">
+            <button type="submit" class="button">Predict Sentiment</button>
+        </form>
+    </div>
+    {% if sentiment_table %}
+        <hr class="hr">
+		<div class="box">
+
+        <h2>Batch Sentiment Analysis Results</h2>
+        <table class="data">
+            <tbody>
+            {{ sentiment_table | safe }}
+            </tbody>
+        </table>
+        <br>
+        <form action="/download_sentiment_table" method="post">
+            <button type="submit" class="button">Download Predicted Sentiments</button>
+        </form>
+    {% endif %}
+
+    {% if grouped_sentiment_table %}
+        <h2>Aggregated Sentiment Analysis Results</h2>
+        <table class="data">
+            <tbody>
+            {{ grouped_sentiment_table | safe }}
+            </tbody>
+        </table>
+        <br>
+        <form action="/download_grouped_sentiment_table" method="post">
+            <button type="submit" class="button">Download Grouped Sentiments</button>
+        </form>
+    {% endif %}
+</div>
+</body>
+</html>

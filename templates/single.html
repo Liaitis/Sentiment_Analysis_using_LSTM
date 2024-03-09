@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            margin: 50px auto;
+            width: 80%;
+            max-width: 600px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        .button {
+            background-color: #ADD8E6; /* Light blue */
+            color: black; /* Font color black */
+            border: 3px solid #ADD8E6; /* Add border */
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .button:hover {
+            background-color: #87CEEB; /* Sky blue */
+        }
+        .Positive {
+            color: green;
+        }
+        .Negative {
+            color: red;
+        }
+        .Neutral {
+            color: orange;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Single Sentiment Analysis</h1>
+		<p> Enter the sentence for which you would like a sentiment prediction.<p>
+        <form action="/single" method="POST">
+            <textarea name="text" placeholder="Enter your text here...">{{ text }}</textarea><br>
+            <button type="submit" class="button">Predict Sentiment</button>
+        </form>
+        {% if sentiment %}
+            <h2>Result</h2>
+           <p><strong>Your text:</strong> {{ text }}</p>
+            <p><strong>Sentiment:</strong> <span class="{{ sentiment }}">{{ sentiment }}</span></p>
+        {% endif %}
+    </div>
+</body>
+</html>
