@@ -2,6 +2,8 @@
 **Title:** Product Sentiment Analyzer
 
 **Dataset:** Flipkart Sentiment Dataset(Kaggle)
+**Source:** https://www.kaggle.com/datasets/mansithummar67/171k-product-review-with-sentiment-dataset
+
 ## Description:
 The Product Sentiment Analyzer is a Python-based web application designed for sentiment analysis of product reviews. This project aims to provide e-commerce platforms with valuable insights into customer sentiments towards their products, helping them make data-driven decisions to enhance product offerings and improve overall customer satisfaction. The sentiment analysis model classifies product reviews into positive, negative, or neutral sentiments, allowing businesses to identify product strengths, weaknesses, and emerging trends.
 
