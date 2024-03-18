@@ -13,9 +13,12 @@ from keras.models import load_model
 import numpy as np
 from nltk.corpus import stopwords
 from sklearn.preprocessing import LabelEncoder
+import os
 
 app = Flask(__name__)
 app.debug = True
+
+DATA_FOLDER = 'data/'
 
 with open('labelencoder.pkl', 'rb') as f:
     encoder = pickle.load(f)
@@ -24,7 +27,6 @@ model = load_model('best_model.h5')
 
 with open('tokenizer.pkl', 'rb') as f:
     tokenizer = pickle.load(f)
-
 
 lemmatizer = WordNetLemmatizer()
 CONTRACTION_MAPPING = {
@@ -145,7 +147,6 @@ def get_font_color(sentiment):
     else:
         return 'orange'
 
-        
 @app.route('/batch')
 def batch_prediction():
     return render_template('batch.html')
@@ -182,8 +183,8 @@ def predict():
             grouped_df = grouped_df[['Name', 'Brand', 'Total', 'Positive (%)', 'Negative (%)', 'Neutral (%)', 'Average Sentiment','Performance']]
             grouped_sentiment_table = grouped_df.to_html(index=False, classes='data', escape=False)
 
-            sentiment_df.to_excel(r'C:\Users\sreekutty\OneDrive\Desktop\Sentiment Analysis Project\New folder\sentiment_table.xlsx', index=False)
-            grouped_df.to_excel(r'C:\Users\sreekutty\OneDrive\Desktop\Sentiment Analysis Project\New folder\grouped_sentiment_table.xlsx', index=False)
+            sentiment_df.to_excel(DATA_FOLDER + 'sentiment_table.xlsx', index=False)
+            grouped_df.to_excel(DATA_FOLDER + 'grouped_sentiment_table.xlsx', index=False)
             
             return render_template('batch.html', sentiment_table=sentiment_table, grouped_sentiment_table=grouped_sentiment_table)
         else:
@@ -191,13 +192,15 @@ def predict():
 
 @app.route('/download_sentiment_table', methods=['POST'])
 def download_sentiment_table():
-    df = pd.read_excel(r'C:\Users\sreekutty\OneDrive\Desktop\Sentiment Analysis Project\New folder\sentiment_table.xlsx')
-    return send_file(r'C:\Users\sreekutty\OneDrive\Desktop\Sentiment Analysis Project\New folder\sentiment_table.xlsx', as_attachment=True)
+    df = pd.read_excel(DATA_FOLDER + 'sentiment_table.xlsx')
+    return send_file(DATA_FOLDER + 'sentiment_table.xlsx', as_attachment=True)
 
 @app.route('/download_grouped_sentiment_table', methods=['POST'])
 def download_grouped_sentiment_table():
-    df = pd.read_excel(r'C:\Users\sreekutty\OneDrive\Desktop\Sentiment Analysis Project\New folder\grouped_sentiment_table.xlsx')
-    return send_file(r'C:\Users\sreekutty\OneDrive\Desktop\Sentiment Analysis Project\New folder\grouped_sentiment_table.xlsx', as_attachment=True)
+    df = pd.read_excel(DATA_FOLDER + 'grouped_sentiment_table.xlsx')
+    return send_file(DATA_FOLDER + 'grouped_sentiment_table.xlsx', as_attachment=True)
 
 if __name__ == '__main__':
+    if not os.path.exists(DATA_FOLDER):
+        os.makedirs(DATA_FOLDER)
     app.run(debug=True)
